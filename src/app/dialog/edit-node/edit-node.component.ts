@@ -29,7 +29,7 @@ export class EditNodeComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         const node: TreeData = {
-          Id: null,
+          Id: this.currentNode.Id,
           Name: result.nodeName,
           Description: result.nodeDescription,
           Children: this.currentNode.Children,

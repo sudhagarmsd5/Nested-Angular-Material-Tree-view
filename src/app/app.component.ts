@@ -39,7 +39,7 @@ export class AppComponent {
 
   addNode(node: TreeData) {
     // node.Id = this.service.findNodeMaxId(this.nestedDataSource.data) + 1;
-    // console.log(node);
+    console.log('add new node', node);
     this.nestedDataSource.data.push(node);
     this.refreshTreeData();
   }
@@ -49,18 +49,19 @@ export class AppComponent {
     //   this.service.findNodeMaxId(this.nestedDataSource.data) + 1;
     // console.log(childrenNodeData);
     childrenNodeData.currentNode.Children.push(childrenNodeData.node);
-    console.log(childrenNodeData);
+    console.log('add sub node', childrenNodeData.node);
     this.refreshTreeData();
   }
 
   editNode(nodeToBeEdited) {
+    console.log('edit node', nodeToBeEdited.node);
     const fatherElement: TreeData = this.service.findFatherNode(
       nodeToBeEdited.currentNode.Id,
       this.nestedDataSource.data
     );
     let elementPosition: number;
-    nodeToBeEdited.node.Id =
-      this.service.findNodeMaxId(this.nestedDataSource.data) + 1;
+    // nodeToBeEdited.node.Id =
+    //   this.service.findNodeMaxId(this.nestedDataSource.data) + 1;
     if (fatherElement[0]) {
       fatherElement[0].Children[fatherElement[1]] = nodeToBeEdited.node;
     } else {
@@ -68,12 +69,14 @@ export class AppComponent {
         nodeToBeEdited.currentNode.Id,
         this.nestedDataSource.data
       );
+      console.log(elementPosition, 'positions');
       this.nestedDataSource.data[elementPosition] = nodeToBeEdited.node;
     }
     this.refreshTreeData();
   }
 
   deleteNode(nodeToBeDeleted: TreeData) {
+    console.log('delete node', nodeToBeDeleted);
     const deletedElement: TreeData = this.service.findFatherNode(
       nodeToBeDeleted.Id,
       this.nestedDataSource.data
